@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/db/script/AddCustomer.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/script/AddManager.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/script/AddRoom.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/script/AddRoomType.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/admin.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/bookingInfo.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/customer.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/hotel.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/order.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/paymentRecord.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/room.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+    <file url="file://$PROJECT_DIR$/db/table/roomType.sql" value="54db5d83-be85-4bc6-b6c1-ad30e926d20b" />
+  </component>
+</project>

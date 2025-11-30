@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/db/script/AddCustomer.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/script/AddManager.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/script/AddRoom.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/script/AddRoomType.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/admin.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/bookingInfo.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/customer.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/hotel.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/order.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/paymentRecord.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/room.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/table/roomType.sql" dialect="PostgreSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
+  </component>
+</project>
