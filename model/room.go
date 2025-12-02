@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 // Room 对应数据库`room`表（实际字段）
 type Room struct {
 	RoomNumber    string  `json:"roomNumber"`    // 房间号（主键，char(8)）
@@ -17,4 +19,23 @@ type RoomVO struct {
 	HotelName    string `json:"hotelName"`    // 来自`hotel`的酒店名
 	ContactPhone string `json:"contactPhone"` // 来自`hotel`的联系电话
 	HotelAddress string `json:"hotelAddress"` // 来自`hotel`的地址
+}
+
+type RoomDetailVO struct {
+	Room             // 嵌入房间基础信息
+	TypeName  string `json:"typeName"`  // 房间类型名称
+	HotelName string `json:"hotelName"` // 酒店名称
+	// 使用人（客户）信息
+	UserInfo *UserInfo `json:"userInfo"` // 已预约/使用中的客户信息（无则为nil）
+}
+
+// UserInfo 使用人信息（关联预订+客户表）
+type UserInfo struct {
+	CustomerName   string    `json:"customerName"`   // 客户姓名
+	CustomerPhone  string    `json:"customerPhone"`  // 客户电话
+	CustomerIdCard string    `json:"customerIdCard"` // 客户身份证/护照
+	BookingNo      string    `json:"bookingNo"`      // 预订编号
+	CheckInTime    time.Time `json:"checkInTime"`    // 入住时间
+	CheckOutTime   time.Time `json:"checkOutTime"`   // 退房时间
+	BookingStatus  string    `json:"bookingStatus"`  // 预订状态（待入住/已入住）
 }

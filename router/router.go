@@ -22,37 +22,39 @@ func InitRouter() *gin.Engine {
 		c.Next()
 	})
 
-	// API分组
+	// APIs
 	api := r.Group("/api")
 	{
-		// 1. 用户接口
+		// user
 		userCtrl := controller.NewUserController()
 		api.POST("/user/login", userCtrl.Login)
 		api.POST("/user/addAdmin", userCtrl.AddAdmin)
 		api.GET("/user/listAdmin", userCtrl.ListAdmin)
 
-		// 房间接口
+		// room
 		roomCtrl := controller.NewRoomController()
 		api.GET("/room/list", roomCtrl.GetRoomList)
 		api.POST("/room/add", roomCtrl.AddRoom)
 		api.PUT("/room/edit", roomCtrl.EditRoom)
-		api.DELETE("/room/delete/:roomNumber", roomCtrl.DeleteRoom) // 路径参数改为roomNumber
-		api.GET("/room/freeList", roomCtrl.GetFreeRoomList)         // 对应前端的/api/room/freeList
+		api.DELETE("/room/delete/:roomNumber", roomCtrl.DeleteRoom)
+		api.GET("/room/detail/:roomNumber", roomCtrl.GetRoomDetail)
+		api.GET("/room/freeList", roomCtrl.GetFreeRoomList)
 
-		// 新增：房间类型列表API
+		// room type
 		roomTypeCtrl := controller.NewRoomTypeController()
 		api.GET("/room/type/list", roomTypeCtrl.GetRoomTypeList)
 
-		// 3. 预订接口（新增）
+		// booking
 		bookingCtrl := controller.NewBookingController()
-		api.GET("/booking/list", bookingCtrl.GetBookingList)               // 获取预订列表
-		api.POST("/booking/updateStatus", bookingCtrl.UpdateBookingStatus) // 更新预订状态
-		api.POST("/booking/add", bookingCtrl.AddBooking)                   // 新增这一行，注册POST接口
-		
+		api.GET("/booking/list", bookingCtrl.GetBookingList)
+		api.POST("/booking/updateStatus", bookingCtrl.UpdateBookingStatus)
+		api.POST("/booking/add", bookingCtrl.AddBooking)
+
+		// dashboard
 		dashboardCtrl := controller.NewDashboardController()
 		api.GET("/dashboard", dashboardCtrl.GetDashboardData)
 
-		// 新增：酒店列表API
+		// hotel
 		hotelCtrl := controller.NewHotelController()
 		api.GET("/hotel/list", hotelCtrl.GetHotelList)
 

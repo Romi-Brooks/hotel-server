@@ -6,6 +6,7 @@ import (
 	"hotel-server/config"
 	"hotel-server/model"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -192,4 +193,53 @@ func (r *RoomRepository) UpdateRoomStatus(ctx context.Context, roomNumber string
 		return fmt.Errorf("更新房间状态失败: %w", err)
 	}
 	return nil
+}
+
+// GetRoomDetailByNumber 按房间号查询详情（含使用人信息）
+func (r *RoomRepository) GetRoomDetailByNumber(ctx context.Context, roomNumber string) (*model.RoomDetailVO, error) {
+	detail := &model.RoomDetailVO{}
+	// 1. 查询房间基础信息（关联房间类型、酒店）
+	roomSQL := `
+		SELECT 
+			r.room_number, r.current_status, r.price, r.room_type_id, r.hotel_id,
+			rt.type_name, h.hotel_name
+		FROM room r
+		JOIN room_type rt ON r.room_type_id = rt.room_type_id
+		JOIN hotel h ON r.hotel_id = h.hotel_id
+		WHERE r.room_number = $1
+	`
+	err := r.db.QueryRow(ctx, roomSQL, roomNumber).Scan(
+		&detail.RoomNumber, &detail.CurrentStatus, &detail.Price, &detail.RoomTypeId, &detail.HotelId,
+		&detail.TypeName, &detail.HotelName,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("查询房间基础信息失败: %w", err)
+	}
+
+	// 2. 查询房间对应的有效预订（待入住/已入住）+ 客户信息
+	userInfo := &model.UserInfo{}
+	bookingSQL := `
+		SELECT 
+			c.name, c.phone, c.id_card_or_passport,
+			b.booking_no, b.check_in_time, b.check_out_time, b.status
+		FROM booking b
+		JOIN customer c ON b.customer_id = c.customer_id
+		WHERE b.room_number = $1 AND b.status IN ('待入住', '已入住')
+		LIMIT 1; -- 同一房间仅一条有效预订
+	`
+	row := r.db.QueryRow(ctx, bookingSQL, roomNumber)
+	err = row.Scan(
+		&userInfo.CustomerName, &userInfo.CustomerPhone, &userInfo.CustomerIdCard,
+		&userInfo.BookingNo, &userInfo.CheckInTime, &userInfo.CheckOutTime, &userInfo.BookingStatus,
+	)
+	// 无有效预订时，UserInfo置为nil
+	if err == pgx.ErrNoRows {
+		detail.UserInfo = nil
+	} else if err != nil {
+		return nil, fmt.Errorf("查询使用人信息失败: %w", err)
+	} else {
+		detail.UserInfo = userInfo
+	}
+
+	return detail, nil
 }

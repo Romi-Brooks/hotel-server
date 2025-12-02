@@ -18,6 +18,6 @@ type Booking struct {
 // BookingVO 预订视图对象（联表后：包含客户信息）
 type BookingVO struct {
 	Booking              // 嵌入预订表字段
-	CustomerName  string `json:"customerName"` // 来自customer表的姓名
+	CustomerName  string `json:"customerName"`  // 来自customer表的姓名
 	CustomerPhone string `json:"customerPhone"` // 来自customer表的电话
 }

@@ -111,3 +111,21 @@ func (c *RoomController) GetFreeRoomList(ctx *gin.Context) {
 	}
 	util.Success(ctx, gin.H{"list": freeRooms}, "获取空闲房间列表成功")
 }
+
+// GetRoomDetail 按房间号查询详情（含使用人信息）
+func (c *RoomController) GetRoomDetail(ctx *gin.Context) {
+	// 获取路径参数：房间号
+	roomNumber := ctx.Param("roomNumber")
+	if roomNumber == "" {
+		util.Fail(ctx, http.StatusBadRequest, "房间号不能为空")
+		return
+	}
+
+	detail, err := c.repo.GetRoomDetailByNumber(ctx, roomNumber)
+	if err != nil {
+		util.Fail(ctx, 500, "获取房间详情失败："+err.Error())
+		return
+	}
+
+	util.Success(ctx, detail, "获取房间详情成功")
+}
